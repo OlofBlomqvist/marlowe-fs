@@ -50,4 +50,4 @@ let contract_json = contract |> serializeContractToJson
 
 printfn "Marlowe Core JSON -> F#:\n%A\n" deserialized_from_json_to_fsharp
 printfn "F# -> Marlowe Core JSON:\n%s\n" contract_json
-printfn "CBOR-HEX -> Marlowe Core JSON:\n%A\n" datum
+printfn "CBOR-HEX Datum -> Marlowe Core JSON:\n%A\n" datum

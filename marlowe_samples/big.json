@@ -1,0 +1,909 @@
+{
+    "when": [
+        {
+            "then": {
+                "when": [
+                    {
+                        "then": {
+                            "when": [],
+                            "timeout_continuation": {
+                                "when": [
+                                    {
+                                        "then": {
+                                            "when": [],
+                                            "timeout_continuation": {
+                                                "when": [
+                                                    {
+                                                        "then": {
+                                                            "then": {
+                                                                "then": {
+                                                                    "token": {
+                                                                        "token_name": "",
+                                                                        "currency_symbol": ""
+                                                                    },
+                                                                    "to": {
+                                                                        "account": {
+                                                                            "role_token": "Party"
+                                                                        }
+                                                                    },
+                                                                    "then": "close",
+                                                                    "pay": {
+                                                                        "then": {
+                                                                            "use_value": "Decrease in price"
+                                                                        },
+                                                                        "if": {
+                                                                            "value": {
+                                                                                "use_value": "Decrease in price"
+                                                                            },
+                                                                            "lt": 0
+                                                                        },
+                                                                        "else": 0
+                                                                    },
+                                                                    "from_account": {
+                                                                        "role_token": "Counterparty"
+                                                                    }
+                                                                },
+                                                                "let": "Decrease in price",
+                                                                "be": {
+                                                                    "value": {
+                                                                        "value_of_choice": {
+                                                                            "choice_owner": {
+                                                                                "role_token": "Oracle"
+                                                                            },
+                                                                            "choice_name": "Price in first window"
+                                                                        }
+                                                                    },
+                                                                    "minus": {
+                                                                        "value_of_choice": {
+                                                                            "choice_owner": {
+                                                                                "role_token": "Oracle"
+                                                                            },
+                                                                            "choice_name": "Price in second window"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            "if": {
+                                                                "value": {
+                                                                    "value_of_choice": {
+                                                                        "choice_owner": {
+                                                                            "role_token": "Oracle"
+                                                                        },
+                                                                        "choice_name": "Price in first window"
+                                                                    }
+                                                                },
+                                                                "ge": {
+                                                                    "value_of_choice": {
+                                                                        "choice_owner": {
+                                                                            "role_token": "Oracle"
+                                                                        },
+                                                                        "choice_name": "Price in second window"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "else": {
+                                                                "then": {
+                                                                    "then": {
+                                                                        "token": {
+                                                                            "token_name": "",
+                                                                            "currency_symbol": ""
+                                                                        },
+                                                                        "to": {
+                                                                            "account": {
+                                                                                "role_token": "Counterparty"
+                                                                            }
+                                                                        },
+                                                                        "then": "close",
+                                                                        "pay": {
+                                                                            "then": {
+                                                                                "use_value": "Increase in price"
+                                                                            },
+                                                                            "if": {
+                                                                                "value": {
+                                                                                    "use_value": "Increase in price"
+                                                                                },
+                                                                                "lt": 0
+                                                                            },
+                                                                            "else": 0
+                                                                        },
+                                                                        "from_account": {
+                                                                            "role_token": "Party"
+                                                                        }
+                                                                    },
+                                                                    "let": "Increase in price",
+                                                                    "be": {
+                                                                        "value": {
+                                                                            "value_of_choice": {
+                                                                                "choice_owner": {
+                                                                                    "role_token": "Oracle"
+                                                                                },
+                                                                                "choice_name": "Price in second window"
+                                                                            }
+                                                                        },
+                                                                        "minus": {
+                                                                            "value_of_choice": {
+                                                                                "choice_owner": {
+                                                                                    "role_token": "Oracle"
+                                                                                },
+                                                                                "choice_name": "Price in first window"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "if": {
+                                                                    "value": {
+                                                                        "value_of_choice": {
+                                                                            "choice_owner": {
+                                                                                "role_token": "Oracle"
+                                                                            },
+                                                                            "choice_name": "Price in first window"
+                                                                        }
+                                                                    },
+                                                                    "lt": {
+                                                                        "value_of_choice": {
+                                                                            "choice_owner": {
+                                                                                "role_token": "Oracle"
+                                                                            },
+                                                                            "choice_name": "Price in second window"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "else": "close"
+                                                            }
+                                                        },
+                                                        "case": {
+                                                            "for_choice": {
+                                                                "choice_owner": {
+                                                                    "role_token": "Oracle"
+                                                                },
+                                                                "choice_name": "Price in second window"
+                                                            },
+                                                            "choose_between": [
+                                                                {
+                                                                    "to": 1000000000,
+                                                                    "from": 0
+                                                                }
+                                                            ]
+                                                        }
+                                                    }
+                                                ],
+                                                "timeout_continuation": "close",
+                                                "timeout": 1689185319460
+                                            },
+                                            "timeout": 1689185019460
+                                        },
+                                        "case": {
+                                            "for_choice": {
+                                                "choice_owner": {
+                                                    "role_token": "Oracle"
+                                                },
+                                                "choice_name": "Price in first window"
+                                            },
+                                            "choose_between": [
+                                                {
+                                                    "to": 1000000000,
+                                                    "from": 0
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "timeout_continuation": {
+                                    "when": [
+                                        {
+                                            "then": {
+                                                "when": [
+                                                    {
+                                                        "then": {
+                                                            "token": {
+                                                                "token_name": "",
+                                                                "currency_symbol": ""
+                                                            },
+                                                            "to": {
+                                                                "party": {
+                                                                    "role_token": "Borrower"
+                                                                }
+                                                            },
+                                                            "then": {
+                                                                "when": [
+                                                                    {
+                                                                        "then": {
+                                                                            "token": {
+                                                                                "token_name": "",
+                                                                                "currency_symbol": ""
+                                                                            },
+                                                                            "to": {
+                                                                                "party": {
+                                                                                    "role_token": "Lender"
+                                                                                }
+                                                                            },
+                                                                            "then": {
+                                                                                "token": {
+                                                                                    "token_name": "",
+                                                                                    "currency_symbol": ""
+                                                                                },
+                                                                                "to": {
+                                                                                    "party": {
+                                                                                        "role_token": "Guarantor"
+                                                                                    }
+                                                                                },
+                                                                                "then": {
+                                                                                    "when": [
+                                                                                        {
+                                                                                            "then": {
+                                                                                                "token": {
+                                                                                                    "token_name": "",
+                                                                                                    "currency_symbol": ""
+                                                                                                },
+                                                                                                "to": {
+                                                                                                    "party": {
+                                                                                                        "role_token": "Lender"
+                                                                                                    }
+                                                                                                },
+                                                                                                "then": {
+                                                                                                    "token": {
+                                                                                                        "token_name": "",
+                                                                                                        "currency_symbol": ""
+                                                                                                    },
+                                                                                                    "to": {
+                                                                                                        "party": {
+                                                                                                            "role_token": "Guarantor"
+                                                                                                        }
+                                                                                                    },
+                                                                                                    "then": {
+                                                                                                        "when": [
+                                                                                                            {
+                                                                                                                "then": {
+                                                                                                                    "token": {
+                                                                                                                        "token_name": "",
+                                                                                                                        "currency_symbol": ""
+                                                                                                                    },
+                                                                                                                    "to": {
+                                                                                                                        "party": {
+                                                                                                                            "role_token": "Lender"
+                                                                                                                        }
+                                                                                                                    },
+                                                                                                                    "then": {
+                                                                                                                        "token": {
+                                                                                                                            "token_name": "",
+                                                                                                                            "currency_symbol": ""
+                                                                                                                        },
+                                                                                                                        "to": {
+                                                                                                                            "party": {
+                                                                                                                                "role_token": "Guarantor"
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "then": "close",
+                                                                                                                        "pay": {
+                                                                                                                            "and": 0,
+                                                                                                                            "add": 0
+                                                                                                                        },
+                                                                                                                        "from_account": {
+                                                                                                                            "role_token": "Lender"
+                                                                                                                        }
+                                                                                                                    },
+                                                                                                                    "pay": {
+                                                                                                                        "and": 0,
+                                                                                                                        "add": 0
+                                                                                                                    },
+                                                                                                                    "from_account": {
+                                                                                                                        "role_token": "Lender"
+                                                                                                                    }
+                                                                                                                },
+                                                                                                                "case": {
+                                                                                                                    "party": {
+                                                                                                                        "role_token": "Borrower"
+                                                                                                                    },
+                                                                                                                    "of_token": {
+                                                                                                                        "token_name": "",
+                                                                                                                        "currency_symbol": ""
+                                                                                                                    },
+                                                                                                                    "into_account": {
+                                                                                                                        "role_token": "Lender"
+                                                                                                                    },
+                                                                                                                    "deposits": {
+                                                                                                                        "and": 0,
+                                                                                                                        "add": 0
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "timeout_continuation": "close",
+                                                                                                        "timeout": 1500
+                                                                                                    },
+                                                                                                    "pay": 0,
+                                                                                                    "from_account": {
+                                                                                                        "role_token": "Lender"
+                                                                                                    }
+                                                                                                },
+                                                                                                "pay": 0,
+                                                                                                "from_account": {
+                                                                                                    "role_token": "Lender"
+                                                                                                }
+                                                                                            },
+                                                                                            "case": {
+                                                                                                "party": {
+                                                                                                    "role_token": "Borrower"
+                                                                                                },
+                                                                                                "of_token": {
+                                                                                                    "token_name": "",
+                                                                                                    "currency_symbol": ""
+                                                                                                },
+                                                                                                "into_account": {
+                                                                                                    "role_token": "Lender"
+                                                                                                },
+                                                                                                "deposits": 0
+                                                                                            }
+                                                                                        }
+                                                                                    ],
+                                                                                    "timeout_continuation": "close",
+                                                                                    "timeout": 1200
+                                                                                },
+                                                                                "pay": 0,
+                                                                                "from_account": {
+                                                                                    "role_token": "Lender"
+                                                                                }
+                                                                            },
+                                                                            "pay": 0,
+                                                                            "from_account": {
+                                                                                "role_token": "Lender"
+                                                                            }
+                                                                        },
+                                                                        "case": {
+                                                                            "party": {
+                                                                                "role_token": "Borrower"
+                                                                            },
+                                                                            "of_token": {
+                                                                                "token_name": "",
+                                                                                "currency_symbol": ""
+                                                                            },
+                                                                            "into_account": {
+                                                                                "role_token": "Lender"
+                                                                            },
+                                                                            "deposits": 0
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "timeout_continuation": "close",
+                                                                "timeout": 900
+                                                            },
+                                                            "pay": 0,
+                                                            "from_account": {
+                                                                "role_token": "Borrower"
+                                                            }
+                                                        },
+                                                        "case": {
+                                                            "party": {
+                                                                "role_token": "Lender"
+                                                            },
+                                                            "of_token": {
+                                                                "token_name": "",
+                                                                "currency_symbol": ""
+                                                            },
+                                                            "into_account": {
+                                                                "role_token": "Borrower"
+                                                            },
+                                                            "deposits": 0
+                                                        }
+                                                    }
+                                                ],
+                                                "timeout_continuation": {
+                                                    "token": {
+                                                        "token_name": "",
+                                                        "currency_symbol": ""
+                                                    },
+                                                    "to": {
+                                                        "party": {
+                                                            "role_token": "Guarantor"
+                                                        }
+                                                    },
+                                                    "then": {
+                                                        "when": [
+                                                            {
+                                                                "then": {
+                                                                    "token": {
+                                                                        "token_name": "",
+                                                                        "currency_symbol": ""
+                                                                    },
+                                                                    "to": {
+                                                                        "party": {
+                                                                            "role_token": "Borrower"
+                                                                        }
+                                                                    },
+                                                                    "then": {
+                                                                        "when": [
+                                                                            {
+                                                                                "then": {
+                                                                                    "token": {
+                                                                                        "token_name": "",
+                                                                                        "currency_symbol": ""
+                                                                                    },
+                                                                                    "to": {
+                                                                                        "party": {
+                                                                                            "role_token": "Lender"
+                                                                                        }
+                                                                                    },
+                                                                                    "then": "close",
+                                                                                    "pay": {
+                                                                                        "and": 0,
+                                                                                        "add": 0
+                                                                                    },
+                                                                                    "from_account": {
+                                                                                        "role_token": "Borrower"
+                                                                                    }
+                                                                                },
+                                                                                "case": {
+                                                                                    "party": {
+                                                                                        "role_token": "Borrower"
+                                                                                    },
+                                                                                    "of_token": {
+                                                                                        "token_name": "",
+                                                                                        "currency_symbol": ""
+                                                                                    },
+                                                                                    "into_account": {
+                                                                                        "role_token": "Borrower"
+                                                                                    },
+                                                                                    "deposits": {
+                                                                                        "and": 0,
+                                                                                        "add": 0
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        ],
+                                                                        "timeout_continuation": "close",
+                                                                        "timeout": 1689188019460
+                                                                    },
+                                                                    "pay": 0,
+                                                                    "from_account": {
+                                                                        "role_token": "Lender"
+                                                                    }
+                                                                },
+                                                                "case": {
+                                                                    "party": {
+                                                                        "role_token": "Lender"
+                                                                    },
+                                                                    "of_token": {
+                                                                        "token_name": "",
+                                                                        "currency_symbol": ""
+                                                                    },
+                                                                    "into_account": {
+                                                                        "role_token": "Lender"
+                                                                    },
+                                                                    "deposits": 0
+                                                                }
+                                                            }
+                                                        ],
+                                                        "timeout_continuation": {
+                                                            "when": [
+                                                                {
+                                                                    "then": {
+                                                                        "when": [
+                                                                            {
+                                                                                "then": {
+                                                                                    "when": [
+                                                                                        {
+                                                                                            "then": {
+                                                                                                "when": [
+                                                                                                    {
+                                                                                                        "then": "close",
+                                                                                                        "case": {
+                                                                                                            "for_choice": {
+                                                                                                                "choice_owner": {
+                                                                                                                    "role_token": "Buyer"
+                                                                                                                },
+                                                                                                                "choice_name": "Everything is alright"
+                                                                                                            },
+                                                                                                            "choose_between": [
+                                                                                                                {
+                                                                                                                    "to": 0,
+                                                                                                                    "from": 0
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    },
+                                                                                                    {
+                                                                                                        "then": {
+                                                                                                            "token": {
+                                                                                                                "token_name": "",
+                                                                                                                "currency_symbol": ""
+                                                                                                            },
+                                                                                                            "to": {
+                                                                                                                "account": {
+                                                                                                                    "role_token": "Buyer"
+                                                                                                                }
+                                                                                                            },
+                                                                                                            "then": {
+                                                                                                                "when": [
+                                                                                                                    {
+                                                                                                                        "then": "close",
+                                                                                                                        "case": {
+                                                                                                                            "for_choice": {
+                                                                                                                                "choice_owner": {
+                                                                                                                                    "role_token": "Seller"
+                                                                                                                                },
+                                                                                                                                "choice_name": "Confirm problem"
+                                                                                                                            },
+                                                                                                                            "choose_between": [
+                                                                                                                                {
+                                                                                                                                    "to": 1,
+                                                                                                                                    "from": 1
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "then": {
+                                                                                                                            "token": {
+                                                                                                                                "token_name": "",
+                                                                                                                                "currency_symbol": ""
+                                                                                                                            },
+                                                                                                                            "to": {
+                                                                                                                                "party": {
+                                                                                                                                    "address": "addr_test1vqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3lgle2"
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "then": {
+                                                                                                                                "token": {
+                                                                                                                                    "token_name": "",
+                                                                                                                                    "currency_symbol": ""
+                                                                                                                                },
+                                                                                                                                "to": {
+                                                                                                                                    "party": {
+                                                                                                                                        "address": "addr_test1vqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq3lgle2"
+                                                                                                                                    }
+                                                                                                                                },
+                                                                                                                                "then": "close",
+                                                                                                                                "pay": 0,
+                                                                                                                                "from_account": {
+                                                                                                                                    "role_token": "Buyer"
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "pay": 0,
+                                                                                                                            "from_account": {
+                                                                                                                                "role_token": "Seller"
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "case": {
+                                                                                                                            "for_choice": {
+                                                                                                                                "choice_owner": {
+                                                                                                                                    "role_token": "Seller"
+                                                                                                                                },
+                                                                                                                                "choice_name": "Dispute problem"
+                                                                                                                            },
+                                                                                                                            "choose_between": [
+                                                                                                                                {
+                                                                                                                                    "to": 0,
+                                                                                                                                    "from": 0
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "timeout_continuation": "close",
+                                                                                                                "timeout": 1689185919460
+                                                                                                            },
+                                                                                                            "pay": 0,
+                                                                                                            "from_account": {
+                                                                                                                "role_token": "Seller"
+                                                                                                            }
+                                                                                                        },
+                                                                                                        "case": {
+                                                                                                            "for_choice": {
+                                                                                                                "choice_owner": {
+                                                                                                                    "role_token": "Buyer"
+                                                                                                                },
+                                                                                                                "choice_name": "Report problem"
+                                                                                                            },
+                                                                                                            "choose_between": [
+                                                                                                                {
+                                                                                                                    "to": 1,
+                                                                                                                    "from": 1
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    }
+                                                                                                ],
+                                                                                                "timeout_continuation": {
+                                                                                                    "when": [
+                                                                                                        {
+                                                                                                            "then": {
+                                                                                                                "when": [
+                                                                                                                    {
+                                                                                                                        "then": "close",
+                                                                                                                        "case": {
+                                                                                                                            "for_choice": {
+                                                                                                                                "choice_owner": {
+                                                                                                                                    "role_token": "Buyer"
+                                                                                                                                },
+                                                                                                                                "choice_name": "Everything is alright"
+                                                                                                                            },
+                                                                                                                            "choose_between": [
+                                                                                                                                {
+                                                                                                                                    "to": 0,
+                                                                                                                                    "from": 0
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        "then": {
+                                                                                                                            "token": {
+                                                                                                                                "token_name": "",
+                                                                                                                                "currency_symbol": ""
+                                                                                                                            },
+                                                                                                                            "to": {
+                                                                                                                                "account": {
+                                                                                                                                    "role_token": "Buyer"
+                                                                                                                                }
+                                                                                                                            },
+                                                                                                                            "then": {
+                                                                                                                                "when": [
+                                                                                                                                    {
+                                                                                                                                        "then": "close",
+                                                                                                                                        "case": {
+                                                                                                                                            "for_choice": {
+                                                                                                                                                "choice_owner": {
+                                                                                                                                                    "role_token": "Seller"
+                                                                                                                                                },
+                                                                                                                                                "choice_name": "Confirm problem"
+                                                                                                                                            },
+                                                                                                                                            "choose_between": [
+                                                                                                                                                {
+                                                                                                                                                    "to": 1,
+                                                                                                                                                    "from": 1
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    },
+                                                                                                                                    {
+                                                                                                                                        "then": {
+                                                                                                                                            "when": [
+                                                                                                                                                {
+                                                                                                                                                    "then": {
+                                                                                                                                                        "token": {
+                                                                                                                                                            "token_name": "",
+                                                                                                                                                            "currency_symbol": ""
+                                                                                                                                                        },
+                                                                                                                                                        "to": {
+                                                                                                                                                            "party": {
+                                                                                                                                                                "role_token": "Seller"
+                                                                                                                                                            }
+                                                                                                                                                        },
+                                                                                                                                                        "then": "close",
+                                                                                                                                                        "pay": 0,
+                                                                                                                                                        "from_account": {
+                                                                                                                                                            "role_token": "Buyer"
+                                                                                                                                                        }
+                                                                                                                                                    },
+                                                                                                                                                    "case": {
+                                                                                                                                                        "for_choice": {
+                                                                                                                                                            "choice_owner": {
+                                                                                                                                                                "role_token": "Mediator"
+                                                                                                                                                            },
+                                                                                                                                                            "choice_name": "Dismiss claim"
+                                                                                                                                                        },
+                                                                                                                                                        "choose_between": [
+                                                                                                                                                            {
+                                                                                                                                                                "to": 0,
+                                                                                                                                                                "from": 0
+                                                                                                                                                            }
+                                                                                                                                                        ]
+                                                                                                                                                    }
+                                                                                                                                                },
+                                                                                                                                                {
+                                                                                                                                                    "then": "close",
+                                                                                                                                                    "case": {
+                                                                                                                                                        "for_choice": {
+                                                                                                                                                            "choice_owner": {
+                                                                                                                                                                "role_token": "Mediator"
+                                                                                                                                                            },
+                                                                                                                                                            "choice_name": "Confirm problem"
+                                                                                                                                                        },
+                                                                                                                                                        "choose_between": [
+                                                                                                                                                            {
+                                                                                                                                                                "to": 1,
+                                                                                                                                                                "from": 1
+                                                                                                                                                            }
+                                                                                                                                                        ]
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            ],
+                                                                                                                                            "timeout_continuation": "close",
+                                                                                                                                            "timeout": 1689187719460
+                                                                                                                                        },
+                                                                                                                                        "case": {
+                                                                                                                                            "for_choice": {
+                                                                                                                                                "choice_owner": {
+                                                                                                                                                    "role_token": "Seller"
+                                                                                                                                                },
+                                                                                                                                                "choice_name": "Dispute problem"
+                                                                                                                                            },
+                                                                                                                                            "choose_between": [
+                                                                                                                                                {
+                                                                                                                                                    "to": 0,
+                                                                                                                                                    "from": 0
+                                                                                                                                                }
+                                                                                                                                            ]
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                ],
+                                                                                                                                "timeout_continuation": "close",
+                                                                                                                                "timeout": 1689186219460
+                                                                                                                            },
+                                                                                                                            "pay": 0,
+                                                                                                                            "from_account": {
+                                                                                                                                "role_token": "Seller"
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        "case": {
+                                                                                                                            "for_choice": {
+                                                                                                                                "choice_owner": {
+                                                                                                                                    "role_token": "Buyer"
+                                                                                                                                },
+                                                                                                                                "choice_name": "Report problem"
+                                                                                                                            },
+                                                                                                                            "choose_between": [
+                                                                                                                                {
+                                                                                                                                    "to": 1,
+                                                                                                                                    "from": 1
+                                                                                                                                }
+                                                                                                                            ]
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                ],
+                                                                                                                "timeout_continuation": "close",
+                                                                                                                "timeout": 1689185919460
+                                                                                                            },
+                                                                                                            "case": {
+                                                                                                                "party": {
+                                                                                                                    "role_token": "Buyer"
+                                                                                                                },
+                                                                                                                "of_token": {
+                                                                                                                    "token_name": "",
+                                                                                                                    "currency_symbol": ""
+                                                                                                                },
+                                                                                                                "into_account": {
+                                                                                                                    "role_token": "Seller"
+                                                                                                                },
+                                                                                                                "deposits": 0
+                                                                                                            }
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "timeout_continuation": "close",
+                                                                                                    "timeout": 1689188319460
+                                                                                                },
+                                                                                                "timeout": 1689187119460
+                                                                                            },
+                                                                                            "case": {
+                                                                                                "party": {
+                                                                                                    "role_token": "Buyer"
+                                                                                                },
+                                                                                                "of_token": {
+                                                                                                    "token_name": "",
+                                                                                                    "currency_symbol": ""
+                                                                                                },
+                                                                                                "into_account": {
+                                                                                                    "role_token": "Seller"
+                                                                                                },
+                                                                                                "deposits": 0
+                                                                                            }
+                                                                                        }
+                                                                                    ],
+                                                                                    "timeout_continuation": "close",
+                                                                                    "timeout": 1689186819460
+                                                                                },
+                                                                                "case": {
+                                                                                    "party": {
+                                                                                        "role_token": "Buyer"
+                                                                                    },
+                                                                                    "of_token": {
+                                                                                        "token_name": "",
+                                                                                        "currency_symbol": ""
+                                                                                    },
+                                                                                    "into_account": {
+                                                                                        "role_token": "Buyer"
+                                                                                    },
+                                                                                    "deposits": 0
+                                                                                }
+                                                                            }
+                                                                        ],
+                                                                        "timeout_continuation": "close",
+                                                                        "timeout": 1689186519460
+                                                                    },
+                                                                    "case": {
+                                                                        "party": {
+                                                                            "role_token": "Seller"
+                                                                        },
+                                                                        "of_token": {
+                                                                            "token_name": "",
+                                                                            "currency_symbol": ""
+                                                                        },
+                                                                        "into_account": {
+                                                                            "role_token": "Seller"
+                                                                        },
+                                                                        "deposits": 0
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "timeout_continuation": "close",
+                                                            "timeout": 1689185619460
+                                                        },
+                                                        "timeout": 1689187419460
+                                                    },
+                                                    "pay": {
+                                                        "and": 0,
+                                                        "add": {
+                                                            "times": 0,
+                                                            "multiply": 3
+                                                        }
+                                                    },
+                                                    "from_account": {
+                                                        "role_token": "Lender"
+                                                    }
+                                                },
+                                                "timeout": 600
+                                            },
+                                            "case": {
+                                                "party": {
+                                                    "role_token": "Guarantor"
+                                                },
+                                                "of_token": {
+                                                    "token_name": "",
+                                                    "currency_symbol": ""
+                                                },
+                                                "into_account": {
+                                                    "role_token": "Lender"
+                                                },
+                                                "deposits": {
+                                                    "and": 0,
+                                                    "add": {
+                                                        "times": 0,
+                                                        "multiply": 3
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "timeout_continuation": "close",
+                                    "timeout": 300
+                                },
+                                "timeout": 1689184719460
+                            },
+                            "timeout": 1689184419460
+                        },
+                        "case": {
+                            "party": {
+                                "role_token": "Counterparty"
+                            },
+                            "of_token": {
+                                "token_name": "",
+                                "currency_symbol": ""
+                            },
+                            "into_account": {
+                                "role_token": "Counterparty"
+                            },
+                            "deposits": 0
+                        }
+                    }
+                ],
+                "timeout_continuation": "close",
+                "timeout": 1689184119460
+            },
+            "case": {
+                "party": {
+                    "role_token": "Party"
+                },
+                "of_token": {
+                    "token_name": "",
+                    "currency_symbol": ""
+                },
+                "into_account": {
+                    "role_token": "Party"
+                },
+                "deposits": 0
+            }
+        }
+    ],
+    "timeout_continuation": "close",
+    "timeout": 1689183819460
+}

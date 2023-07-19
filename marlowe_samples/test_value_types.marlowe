@@ -1,0 +1,37 @@
+When
+    [(Case
+        (Deposit
+            (Role "ddd")
+            (Role "Ada provider")
+            (Token "" "")
+            (Cond
+                TrueObs 
+                (AvailableMoney
+                    (Role "role")
+                    (Token "" "")
+                )
+                (AddValue
+                    (AddValue
+                        (NegValue (Constant 3))
+                        (Constant 3)
+                    )
+                    (SubValue
+                        (ChoiceValue
+                            (ChoiceId
+                                "name"
+                                (Role "role")
+                            ))
+                        (MulValue
+                            TimeIntervalStart 
+                            (DivValue
+                                (UseValue "value")
+                                TimeIntervalEnd 
+                            )
+                        )
+                    )
+                )
+            )
+        )
+        Close )]
+    888
+    Close 

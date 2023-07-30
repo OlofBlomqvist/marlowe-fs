@@ -48,6 +48,23 @@ let datum = marlowe_fs.datum_json_from_cbor_hex "d8799fd8799f581c8bb3b343d8e4044
 let contract_json = contract |> serializeContractToJson
 
 
+
+let sample_contract = """When
+    [Case
+        (Deposit
+            (Role "Seller")
+            (Role "Buyer")
+            (Token "" "")
+            (Constant 123123123)
+        )
+        Close ]
+    1690727774789 Close 
+"""
+let deserialized_from_dsl_to_fsharp= sample_contract |> contract_dsl_to_fsharp 
+
+
+
 printfn "Marlowe Core JSON -> F#:\n%A\n" deserialized_from_json_to_fsharp
 printfn "F# -> Marlowe Core JSON:\n%s\n" contract_json
 printfn "CBOR-HEX Datum -> Marlowe Core JSON:\n%A\n" datum
+printfn "Marlowe DSL -> F# (without variables):\n%A\n" deserialized_from_dsl_to_fsharp
